@@ -17,6 +17,7 @@ public class Main {
         String keyWord;
         String startDate;
         String endDate;
+        int page;
 
         Scanner sc = new Scanner(System.in);
 
@@ -26,6 +27,8 @@ public class Main {
         site = sc.nextLine();
         System.out.println("키워드를 입력하세요.");
         keyWord = sc.nextLine();
+        System.out.println("페이지 수를 입력하세요");
+        page = Integer.parseInt(sc.nextLine());
         System.out.println("시작 날짜를 입력하세요. (YYYY-MM-DD)");
         startDate = sc.nextLine();
         System.out.println("종료 날짜를 입력하세요. (YYYY-MM-DD)");
@@ -47,8 +50,11 @@ public class Main {
                 crawler = new GoogleCrawler(keyWord);
                 break;
         }
-        crawler.setStartDate(Date.valueOf(startDate));
-        crawler.setEndDate(Date.valueOf(endDate));
+        crawler.setStartDate(startDate);
+        crawler.setEndDate(endDate);
+        crawler.setPage(page);
+
+        crawler.run();
     }
 
 }
