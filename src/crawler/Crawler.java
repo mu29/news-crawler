@@ -5,18 +5,26 @@ import java.util.Date;
 public abstract class Crawler {
 
     protected String keyWord;
-    protected Date startDate;
-    protected Date endDate;
+    protected String startDate;
+    protected String endDate;
+    protected String baseUrl;
     protected String urlString;
+    protected int page;
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
-    public abstract void makeUrl();
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    protected abstract void makeUrl();
+
+    public abstract void run();
 
 }
