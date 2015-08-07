@@ -7,7 +7,7 @@ public class Post {
     private String contents;
 
     public Post(String title, String link, String contents) {
-        this.title = title;
+        this.title = title.replace("\"", "");
         this.link = link;
         this.contents = contents;
     }
