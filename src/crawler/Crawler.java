@@ -6,6 +6,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class Crawler {
 
@@ -42,7 +44,16 @@ public abstract class Crawler {
         }
         Collections.sort(contentsList, new StringLengthListSort());
 
-        return contentsList.size() > 0 ? contentsList.get(0) : "기사 내용을 가져올 수 없습니다.";
+        String longest = contentsList.size() > 0 ? contentsList.get(contentsList.size() - 1) : "기사 내용을 가져올 수 없습니다.";
+        longest = longest.replace(" ", "");
+        String contents = contentsList.size() > 0 ? contentsList.get(0) : "기사 내용을 가져올 수 없습니다.";
+
+        Pattern pattern = Pattern.compile("[0-9]{2,4}[^0-9a-zA-Z]{1}[0-9]{2}[^0-9a-zA-Z]{1}[0-9]{2}[^0-9a-zA-Z]?");
+        Matcher match = pattern.matcher(longest);
+        if (match.find())
+            return "[|" + match.group(0) + "|]" + contents;
+
+        return "[날짜를 찾을 수 없습니다]" + contents;
     }
 
     protected boolean isMatch(String sample, String text) {
