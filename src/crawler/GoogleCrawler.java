@@ -64,13 +64,16 @@ public class GoogleCrawler extends Crawler {
                         .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36")
                         .get();
                 Elements titleList = doc.select("h3");
+                Elements dateList = doc.select("div.slp");
                 Elements contentsList = doc.select("div.st");
 
                 for (int n = 0; n < titleList.size(); n++) {
                     String title = titleList.get(n).text();
                     String link = titleList.get(n).childNode(0).attr("href");
+                    String[] temp = dateList.get(n).text().split("-");
+                    String date = temp[temp.length - 1];
                     String contents = getContents(link, contentsList.get(n).text());
-                    Post post = new Post(title, link, contents);
+                    Post post = new Post(title, date, link, contents);
 
                     da.savePost(post);
                 }

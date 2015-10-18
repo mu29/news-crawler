@@ -49,13 +49,15 @@ public class NaverCrawler extends Crawler {
                 String url = urlString + PAGE + i;
                 Document doc = Jsoup.connect(url).get();
                 Elements titleList = doc.select("a.tit");
+                Elements dateList = doc.select("span.time");
                 Elements contentsList = doc.select("p.dsc");
 
                 for (int n = 0; n < titleList.size(); n++) {
                     String title = titleList.get(n).text();
+                    String date = dateList.get(n).text();
                     String link = titleList.get(n).attr("href");
                     String contents = getContents(link, contentsList.get(n).text());
-                    Post post = new Post(title, link, contents);
+                    Post post = new Post(title, date, link, contents);
 
                     da.savePost(post);
                 }

@@ -3,11 +3,13 @@ package data;
 public class Post {
 
     private String title;
+    private String date;
     private String link;
     private String contents;
 
-    public Post(String title, String link, String contents) {
+    public Post(String title, String date, String link, String contents) {
         this.title = title.replace("\"", "");
+        this.date = date;
         this.link = link;
         this.contents = contents;
     }
@@ -24,4 +26,7 @@ public class Post {
         return contents;
     }
 
+    public String getDate() {
+        return date;
+    }
 }

@@ -17,27 +17,8 @@ public class DataAccessor {
             if(!dir.exists())
                 dir.mkdir();
 
-            String date = "";
-            if (!post.getContents().contains("날짜를 찾을 수 없습니다")) {
-                Pattern pattern = Pattern.compile("\\[\\|.*\\|\\]");
-                Matcher match = pattern.matcher(post.getContents());
-                if (match.find())
-                    date = match.group(0);
-
-                date = date.replaceAll("[^0-9]*", ".").replace("..", "-");
-                date = date.replace(".", "");
-                date = date.substring(1, date.length() - 1);
-
-                pattern = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
-                match = pattern.matcher(date);
-                if (!match.find())
-                    date = "20" + date;
-            } else {
-                date = "[날짜를 찾을 수 없습니다]";
-            }
-
-            FileWriter fw = new FileWriter("./results/[" + date + "] " +
-                    (post.getContents().equals("기사 내용을 가져올 수 없습니다.") ? "_" : "") + post.getTitle());
+            String date = post.getDate().substring(0, post.getDate().length() - 1);
+            FileWriter fw = new FileWriter("./results/[" + date + "] " + post.getTitle().replace("/", "&"));
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write("[Title]");
             bw.newLine();
@@ -51,7 +32,7 @@ public class DataAccessor {
             bw.newLine();
             bw.write("[Contents]");
             bw.newLine();
-            bw.write(post.getContents().replace(date, ""));
+            bw.write(post.getContents());
 
             bw.close();
 
