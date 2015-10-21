@@ -17,7 +17,7 @@ public class DataAccessor {
             if(!dir.exists())
                 dir.mkdir();
 
-            String date = post.getDate().substring(0, post.getDate().length() - 1);
+            String date = post.getDate();
             FileWriter fw = new FileWriter("./results/[" + date + "] " + post.getTitle().replace("/", "&"));
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write("[Title]");

@@ -37,13 +37,20 @@ public class Main {
         Crawler crawler;
         switch (site) {
             case Site.NAVER:
+                System.out.println("신문 게제 옵션을 선택하세요. (Y/N)");
+                String onPaper = sc.nextLine();
+                System.out.println("신문사 코드 선택하세요. (001~, 없으면 -1)");
+                String code = sc.nextLine();
+
                 crawler = new NaverCrawler(keyWord);
+                ((NaverCrawler) crawler).setOnPaper(onPaper.equals("Y"));
+                ((NaverCrawler) crawler).setCode(code);
                 break;
             case Site.GOOGLE:
                 crawler = new GoogleCrawler(keyWord);
 
                 System.out.println("검색 지역을 입력하세요.");
-                String  location = sc.nextLine();
+                String location = sc.nextLine();
                 ((GoogleCrawler) crawler).setLocation(location);
                 break;
             default:

@@ -19,10 +19,23 @@ public class NaverCrawler extends Crawler {
     private final String START_DATE = "&startDate=";
     private final String END_DATE = "&endDate=";
     private final String PAGE = "&page=";
+    private final String ON_PAPER = "&stPaper=exist:1";
+    private final String NEWS_CODE = "&newscode=";
+
+    private boolean onPaper;
+    private String code;
 
     public NaverCrawler(String keyWord) {
         this.keyWord = keyWord;
         this.baseUrl = "http://news.naver.com/main/search/search.nhn?so=rel.dsc&ie=MS949&detail=0&sm=all.basic";
+    }
+
+    public void setOnPaper(boolean onPaper) {
+        this.onPaper = onPaper;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     @Override
@@ -34,6 +47,10 @@ public class NaverCrawler extends Crawler {
             } else {
                 urlString += "1";
             }
+            if (onPaper)
+                urlString += ON_PAPER;
+            if (!code.equals("-1"))
+                urlString += NEWS_CODE + code;
         } catch (Exception e) {
             e.printStackTrace();
         }
